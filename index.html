@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MU Maps Spots</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <h1>MU Maps Spots</h1>
+      <p>Clique no mapa para criar um spot e colocar o nome do char.</p>
+    </div>
+    <div class="controls">
+      <select id="mapSelect"></select>
+      <button id="syncBtn">Sincronizar</button>
+      <button id="saveOnlineBtn">Salvar online</button>
+      <button id="shareBtn">Exportar link</button>
+      <button id="clearBtn" class="danger">Limpar mapa</button>
+    </div>
+  </header>
+
+  <main>
+    <section class="mapPanel">
+      <div id="mapWrap">
+        <img id="mapImg" alt="Mapa selecionado" draggable="false" />
+        <div id="spotsLayer"></div>
+      </div>
+    </section>
+
+    <aside>
+      <h2 id="sideTitle">Spots</h2>
+      <div id="onlineStatus" class="status">Modo local</div>
+      <div id="spotsList"></div>
+    </aside>
+  </main>
+
+  <dialog id="spotDialog">
+    <form method="dialog" id="spotForm">
+      <h2 id="dialogTitle">Novo spot</h2>
+      <input type="hidden" id="spotId" />
+      <label>Nome do char
+        <input id="charName" required placeholder="Ex: xSuperSUM" />
+      </label>
+      <label>Observação opcional
+        <input id="spotNote" placeholder="Ex: pt principal, away, guild..." />
+      </label>
+      <div class="dialogActions">
+        <button value="cancel" type="button" id="cancelBtn">Cancelar</button>
+        <button value="delete" type="button" id="deleteBtn" class="danger">Excluir</button>
+        <button value="save" type="submit">Salvar</button>
+      </div>
+    </form>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
