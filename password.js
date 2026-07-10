@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
   // MUDE A SENHA AQUI
-  const SITE_PASSWORD = "MegaHunt2026";
+  const SITE_PASSWORD = "matamula19";
 
   const passwordScreen = document.getElementById("passwordScreen");
   const mainApp = document.getElementById("mainApp");
