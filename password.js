@@ -1,77 +1,66 @@
-// =========================
-// ALTERE A SENHA AQUI
-// =========================
-const SITE_PASSWORD = "matatroxa19";
+document.addEventListener("DOMContentLoaded", () => {
+  // MUDE A SENHA AQUI
+  const SITE_PASSWORD = "MegaHunt2026";
 
-// =========================
-// ELEMENTOS
-// =========================
-const passwordScreen = document.getElementById("passwordScreen");
-const mainApp = document.getElementById("mainApp");
-const passwordInput = document.getElementById("passwordInput");
-const passwordButton = document.getElementById("passwordButton");
-const passwordError = document.getElementById("passwordError");
+  const passwordScreen = document.getElementById("passwordScreen");
+  const mainApp = document.getElementById("mainApp");
+  const passwordInput = document.getElementById("passwordInput");
+  const passwordButton = document.getElementById("passwordButton");
+  const passwordError = document.getElementById("passwordError");
 
-// =========================
-// LIBERA O ACESSO
-// =========================
-function unlockSite() {
-    sessionStorage.setItem("megaHuntAccess", "true");
+  if (
+    !passwordScreen ||
+    !mainApp ||
+    !passwordInput ||
+    !passwordButton ||
+    !passwordError
+  ) {
+    console.error("Erro: elementos da tela de senha não foram encontrados.");
+    return;
+  }
 
-    passwordScreen.classList.add("hidden");
-    mainApp.classList.remove("locked");
-}
+  function unlockSite() {
+    sessionStorage.setItem("megaHuntAccess", "allowed");
 
-// =========================
-// VERIFICA A SENHA
-// =========================
-function checkPassword() {
+    passwordScreen.style.display = "none";
+    mainApp.style.display = "grid";
 
-    if (passwordInput.value === SITE_PASSWORD) {
+    passwordInput.value = "";
+    passwordError.style.display = "none";
+  }
 
-        passwordError.classList.remove("show");
+  function checkPassword() {
+    const typedPassword = passwordInput.value.trim();
 
-        unlockSite();
-
-    } else {
-
-        passwordError.classList.add("show");
-
-        passwordInput.value = "";
-
-        passwordInput.focus();
-
+    if (typedPassword === SITE_PASSWORD) {
+      unlockSite();
+      return;
     }
 
-}
+    passwordError.textContent = "Senha incorreta.";
+    passwordError.style.display = "block";
 
-// =========================
-// SE JÁ ESTIVER LOGADO
-// =========================
-if (sessionStorage.getItem("megaHuntAccess") === "true") {
-
-    unlockSite();
-
-} else {
-
+    passwordInput.value = "";
     passwordInput.focus();
+  }
 
-}
+  const accessAllowed =
+    sessionStorage.getItem("megaHuntAccess") === "allowed";
 
-// =========================
-// BOTÃO ENTRAR
-// =========================
-passwordButton.addEventListener("click", checkPassword);
+  if (accessAllowed) {
+    unlockSite();
+  } else {
+    passwordScreen.style.display = "flex";
+    mainApp.style.display = "none";
+    passwordInput.focus();
+  }
 
-// =========================
-// ENTER
-// =========================
-passwordInput.addEventListener("keydown", (event) => {
+  passwordButton.addEventListener("click", checkPassword);
 
+  passwordInput.addEventListener("keydown", event => {
     if (event.key === "Enter") {
-
-        checkPassword();
-
+      event.preventDefault();
+      checkPassword();
     }
-
+  });
 });
