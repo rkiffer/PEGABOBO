@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // MUDE A SENHA AQUI
   const SITE_PASSWORD = "matamula19";
 
   const passwordScreen = document.getElementById("passwordScreen");
@@ -15,7 +14,9 @@ document.addEventListener("DOMContentLoaded", () => {
     !passwordButton ||
     !passwordError
   ) {
-    console.error("Erro: elementos da tela de senha não foram encontrados.");
+    console.error(
+      "Erro: um ou mais elementos da tela de senha não foram encontrados."
+    );
     return;
   }
 
@@ -27,6 +28,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
     passwordInput.value = "";
     passwordError.style.display = "none";
+  }
+
+  function lockSite() {
+    passwordScreen.style.display = "flex";
+    mainApp.style.display = "none";
+
+    passwordInput.value = "";
+    passwordError.style.display = "none";
+
+    setTimeout(() => {
+      passwordInput.focus();
+    }, 50);
   }
 
   function checkPassword() {
@@ -50,9 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (accessAllowed) {
     unlockSite();
   } else {
-    passwordScreen.style.display = "flex";
-    mainApp.style.display = "none";
-    passwordInput.focus();
+    lockSite();
   }
 
   passwordButton.addEventListener("click", checkPassword);
