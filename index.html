@@ -10,7 +10,50 @@
 </head>
 
 <body>
-  <div class="app-shell">
+
+  <!-- Tela de senha -->
+  <div id="passwordScreen" class="password-screen">
+    <div class="password-box">
+
+      <img
+        src="assets/logo.png"
+        alt="MEGAHUNT by RNK"
+        class="password-logo"
+        draggable="false"
+      />
+
+      <h2>Acesso Restrito</h2>
+
+      <p>
+        Digite a senha para acessar os mapas.
+      </p>
+
+      <input
+        id="passwordInput"
+        type="password"
+        placeholder="Digite a senha"
+        autocomplete="current-password"
+      />
+
+      <button
+        id="passwordButton"
+        type="button"
+      >
+        Entrar
+      </button>
+
+      <p
+        id="passwordError"
+        class="password-error"
+      >
+        Senha incorreta.
+      </p>
+
+    </div>
+  </div>
+
+  <!-- Aplicação principal -->
+  <div id="mainApp" class="app-shell locked">
 
     <aside class="left-sidebar">
 
@@ -24,6 +67,7 @@
       </div>
 
       <section class="panel-block">
+
         <div class="block-head">
           <h3>Personagens</h3>
 
@@ -51,9 +95,11 @@
           id="charactersList"
           class="characters-list"
         ></div>
+
       </section>
 
       <section class="stats-card">
+
         <div>
           <span>Spots Criados</span>
           <strong id="spotsCount">0 / 500</strong>
@@ -68,9 +114,11 @@
           <span>Última atualização</span>
           <strong id="lastUpdate">--</strong>
         </div>
+
       </section>
 
       <section class="tip-card">
+
         <div class="mouse-icon">│</div>
 
         <div>
@@ -78,6 +126,7 @@
           <br />
           Clique no mapa para adicionar um novo spot.
         </div>
+
       </section>
 
     </aside>
@@ -87,12 +136,14 @@
       <header class="topbar">
 
         <div class="map-select-row">
+
           <span>Mapa:</span>
 
           <select
             id="mapSelect"
             aria-label="Selecionar mapa"
           ></select>
+
         </div>
 
         <div class="top-actions">
@@ -140,6 +191,7 @@
             id="mapInner"
             class="map-inner"
           >
+
             <img
               id="mapImage"
               alt="Mapa selecionado"
@@ -150,6 +202,7 @@
               id="spotsLayer"
               class="spots-layer"
             ></div>
+
           </div>
         </div>
 
@@ -160,6 +213,7 @@
     <aside class="right-sidebar">
 
       <section class="help-card">
+
         <h3>Como usar</h3>
 
         <ol>
@@ -169,15 +223,19 @@
           <li>O spot será salvo automaticamente</li>
           <li>Compartilhe o link com seu time</li>
         </ol>
+
       </section>
 
       <section class="help-card">
+
         <h3>Opções de Visualização</h3>
 
         <div class="setting-line">
+
           <span>Mostrar Nomes</span>
 
           <label class="switch">
+
             <input
               id="showNamesToggle"
               type="checkbox"
@@ -185,7 +243,9 @@
             />
 
             <i></i>
+
           </label>
+
         </div>
 
         <label
@@ -198,20 +258,24 @@
         <select id="spotColorMode">
           <option>Por Personagem</option>
         </select>
+
       </section>
 
       <section
         id="spotInspector"
         class="help-card"
       >
+
         <h3>Spot Selecionado</h3>
 
         <p class="muted">
           Clique em um spot para editar ou excluir.
         </p>
+
       </section>
 
       <section class="help-card">
+
         <h3>Ações do Mapa</h3>
 
         <button
@@ -229,6 +293,7 @@
         >
           ⌾ Centralizar Mapa
         </button>
+
       </section>
 
     </aside>
@@ -241,7 +306,9 @@
   >
     <form method="dialog">
 
-      <h2 id="modalTitle">Adicionar Spot</h2>
+      <h2 id="modalTitle">
+        Adicionar Spot
+      </h2>
 
       <label for="spotCharacterSelect">
         Personagem
@@ -325,9 +392,14 @@
 
   <div id="toast"></div>
 
+  <!-- Carrega primeiro o sistema de senha -->
+  <script src="password.js"></script>
+
+  <!-- Depois carrega o aplicativo -->
   <script
     type="module"
     src="app.js"
   ></script>
+
 </body>
 </html>
