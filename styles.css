@@ -808,17 +808,14 @@ button{
 
 .location-results{
   display:none;
-  position:absolute;
-  top:calc(100% + 6px);
-  left:0;
-  right:0;
-  z-index:120;
+  width:100%;
   max-height:260px;
+  margin-top:8px;
   overflow:auto;
-  border:1px solid var(--line);
+  border:1px solid rgba(79,105,255,.42);
   border-radius:9px;
   background:#090f17;
-  box-shadow:0 18px 45px rgba(0,0,0,.62);
+  box-shadow:0 12px 30px rgba(0,0,0,.38);
 }
 
 .location-results.show{
@@ -828,7 +825,7 @@ button{
 .location-result{
   width:100%;
   display:grid;
-  grid-template-columns:18px 1fr;
+  grid-template-columns:18px minmax(0,1fr) auto;
   gap:9px;
   align-items:center;
   padding:11px 12px;
@@ -929,5 +926,38 @@ button{
     transform:translate(-50%,-50%) scale(1);
     filter:brightness(1);
   }
+}
+
+.location-result-info{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  gap:3px;
+}
+
+.location-map-name{
+  color:#75b5ff;
+  font-size:12px;
+  font-weight:700;
+}
+
+.location-open{
+  color:#75b5ff;
+  font-size:12px;
+  font-weight:700;
+}
+
+.location-empty{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.location-empty strong{
+  color:var(--text);
+}
+
+.location-empty span{
+  color:var(--muted);
 }
 
