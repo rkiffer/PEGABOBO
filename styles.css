@@ -779,3 +779,155 @@ button{
     font-size:22px;
   }
 }
+
+/* =========================================
+   LOCALIZAÇÃO GLOBAL DE PERSONAGENS
+========================================= */
+
+.location-search-block{
+  position:relative;
+  margin:2px 0 16px;
+}
+
+.location-search-block > label,
+.list-search-label{
+  display:block;
+  margin:0 0 7px;
+  color:var(--muted);
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:.02em;
+  text-transform:uppercase;
+}
+
+.location-search-wrap{
+  margin-bottom:0;
+  border-color:rgba(79,105,255,.48);
+  box-shadow:0 0 0 1px rgba(79,105,255,.08);
+}
+
+.location-results{
+  display:none;
+  position:absolute;
+  top:calc(100% + 6px);
+  left:0;
+  right:0;
+  z-index:120;
+  max-height:260px;
+  overflow:auto;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:#090f17;
+  box-shadow:0 18px 45px rgba(0,0,0,.62);
+}
+
+.location-results.show{
+  display:block;
+}
+
+.location-result{
+  width:100%;
+  display:grid;
+  grid-template-columns:18px 1fr;
+  gap:9px;
+  align-items:center;
+  padding:11px 12px;
+  color:var(--text);
+  text-align:left;
+  border:0;
+  border-bottom:1px solid var(--line2);
+  background:transparent;
+}
+
+.location-result:last-child{
+  border-bottom:0;
+}
+
+.location-result:hover{
+  background:rgba(79,105,255,.14);
+}
+
+.location-result span:last-child{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+}
+
+.location-result strong{
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.location-result small{
+  margin-top:3px;
+  color:var(--muted);
+}
+
+.location-empty{
+  margin:0;
+  padding:13px;
+  color:var(--muted);
+  font-size:13px;
+}
+
+.char-row{
+  transition:background .18s ease;
+}
+
+.char-row.has-location:hover{
+  background:rgba(79,105,255,.08);
+}
+
+.char-location-btn{
+  min-width:0;
+  display:flex;
+  flex-direction:column;
+  align-items:flex-start;
+  gap:2px;
+  padding:5px 0;
+  color:var(--text);
+  text-align:left;
+  border:0;
+  background:transparent;
+}
+
+.char-location-btn .char-name{
+  width:100%;
+}
+
+.char-location-btn small{
+  max-width:100%;
+  overflow:hidden;
+  color:var(--muted);
+  font-size:11px;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+}
+
+.char-row.no-location .char-location-btn{
+  cursor:default;
+  opacity:.74;
+}
+
+.spot.located .spot-dot{
+  animation:megahunt-locate 0.55s ease-in-out 5;
+}
+
+@keyframes megahunt-locate{
+  0%{
+    transform:translate(-50%,-50%) scale(1);
+    filter:brightness(1);
+  }
+
+  50%{
+    transform:translate(-50%,-50%) scale(1.65);
+    filter:brightness(2.2);
+  }
+
+  100%{
+    transform:translate(-50%,-50%) scale(1);
+    filter:brightness(1);
+  }
+}
+
