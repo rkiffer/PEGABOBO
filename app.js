@@ -337,28 +337,90 @@ function renderLocationResults(){
     return;
   }
 
+  /*
+    Procura primeiro pelos spots.
+    Também compara charId e nome para funcionar com registros antigos.
+  */
+  const matchingCharacters = characters.filter(c =>
+    normalizeName(c.name).includes(term)
+  );
+
+  const matchingIds = new Set(
+    matchingCharacters.map(c => c.id)
+  );
+
   const results = allSpots
-    .filter(s => normalizeName(s.charName).includes(term))
-    .sort((a,b) => String(a.charName || "").localeCompare(String(b.charName || "")));
+    .filter(s =>
+      matchingIds.has(s.charId) ||
+      normalizeName(
+        s.charName || s.normalizedCharName || ""
+      ).includes(term)
+    )
+    .sort((a,b) =>
+      String(a.charName || "").localeCompare(
+        String(b.charName || "")
+      )
+    );
 
-  els.locationResults.innerHTML = results.map(s => `
-    <button
-      class="location-result"
-      type="button"
-      data-map="${s.mapId}"
-      data-spot="${s.id}"
-    >
-      <span
-        class="dot"
-        style="color:${s.color || "#ff4d4d"};background:${s.color || "#ff4d4d"}"
-      ></span>
+  if(results.length === 0){
+    const characterWithoutSpot = matchingCharacters[0];
 
-      <span>
-        <strong>${escapeHtml(s.charName || "Sem nome")}</strong>
-        <small>${escapeHtml(mapInfo(s.mapId).name)}</small>
-      </span>
-    </button>
-  `).join("") || '<p class="location-empty">Nenhum personagem encontrado.</p>';
+    els.locationResults.innerHTML = characterWithoutSpot
+      ? `
+        <div class="location-empty">
+          <strong>${escapeHtml(characterWithoutSpot.name)}</strong>
+          <span>Esse personagem não está em nenhum spot.</span>
+        </div>
+      `
+      : `
+        <div class="location-empty">
+          Nenhum personagem encontrado.
+        </div>
+      `;
+
+    els.locationResults.classList.add("show");
+    return;
+  }
+
+  els.locationResults.innerHTML = results.map(s => {
+    const map = mapInfo(s.mapId);
+    const x = Number(s.x);
+    const y = Number(s.y);
+
+    return `
+      <button
+        class="location-result"
+        type="button"
+        data-map="${escapeHtml(s.mapId)}"
+        data-spot="${escapeHtml(s.id)}"
+      >
+        <span
+          class="dot"
+          style="
+            color:${s.color || "#ff4d4d"};
+            background:${s.color || "#ff4d4d"}
+          "
+        ></span>
+
+        <span class="location-result-info">
+          <strong>${escapeHtml(s.charName || "Sem nome")}</strong>
+
+          <span class="location-map-name">
+            Mapa: ${escapeHtml(map.name)}
+          </span>
+
+          <small>
+            Posição: ${Number.isFinite(x) ? x.toFixed(1) : "--"}% /
+            ${Number.isFinite(y) ? y.toFixed(1) : "--"}%
+          </small>
+        </span>
+
+        <span class="location-open">
+          Abrir
+        </span>
+      </button>
+    `;
+  }).join("");
 
   els.locationResults.classList.add("show");
 }
@@ -843,15 +905,6 @@ els.locationResults.addEventListener("click", e => {
   if(!result) return;
 
   locateCharacter(result.dataset.map, result.dataset.spot);
-});
-
-document.addEventListener("click", e => {
-  if(
-    !e.target.closest(".location-search-block") &&
-    els.locationResults
-  ){
-    els.locationResults.classList.remove("show");
-  }
 });
 
 els.showNamesToggle.addEventListener("change", renderSpots);
